@@ -1,0 +1,98 @@
+<menu-aside classActive="profile"></menu-aside>
+
+<!-- Sidebar navigation -->
+<div class="container-fluid">
+  <div class="row">
+    <!-- Main content -->
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 ta-4">
+      <div
+        *ngIf="loading"
+        class="spinner-border-xl d-flex justify-content-center text-info mt-5"
+      >
+        <div class="spinner-border" role="status"></div>
+      </div>
+      <div class="inner-adjust" *ngIf="!loading">
+        <div class="pt-3 pb-2 mb-3 border-bottom">
+          <h1 class="h2">Perfil</h1>
+        </div>
+        <!-- Show user data when logged in -->
+        <div class="row">
+          <div class="col-md-12 mb-r" *ngIf="userInfo">
+            <div class="card card-cascade cascading-admin-card">
+              <div class="admin-up">
+                <img
+                  class="align-self-start mr-5 img-thumbnail rounded-circle"
+                  src="{{
+                    userInfo.photoURL
+                      ? (userInfo?.photo | async)
+                      : userInfo?.photoURL
+                  }}"
+                  alt="{{ userInfo?.displayName }}"
+                />
+                <div class="data">
+                  <h3 class="text-left mt-2">Sobre ti:</h3>
+                  <p class="text-left" *ngIf="userInfo.displayName">
+                    <strong>Nombre</strong>: {{ userInfo?.displayName }} |
+                    <strong>Email</strong>:
+                    {{ userInfo?.email }}
+                  </p>
+                  <p
+                    class="text-left"
+                    *ngIf="!userInfo?.displayName && teacherInfo?.firstname"
+                  >
+                    <strong>Nombre</strong>:
+                    {{ teacherInfo?.firstname }}
+                    {{ teacherInfo?.lastname }}
+                    | <strong>Email</strong>: {{ userInfo?.email }}
+                  </p>
+                  <p class="text-left">
+                    <strong>User ID</strong>: {{ userInfo?.uid }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 mt-3" *ngIf="schoolInfo">
+            <div class="card card-cascade cascading-admin-card">
+              <div class="admin-up">
+                <img
+                  class="align-self-start mr-5 img-thumbnail rounded-circle"
+                  class="align-self-start mr-5 img-thumbnail rounded-circle"
+                  [src]="schoolUrl | async"
+                  alt="{{ schoolInfo.schoolname }}"
+                />
+                <div class="data">
+                  <h3 class="text-left mt-2">Sobre tu colegio:</h3>
+                  <p class="text-left">
+                    <strong>Nombre del colegio:</strong>
+                    {{ schoolInfo.schoolname }}
+                  </p>
+                  <p class="text-left">
+                    <strong>Director del colegio:</strong>
+                    {{ schoolInfo.headteacher }}
+                  </p>
+                  <p class="text-left text-capitalize">
+                    <strong>Institución:</strong> {{ schoolInfo.institution }} |
+                    <strong>Nivel:</strong> {{ schoolInfo.level }}
+                  </p>
+                  <p class="text-left">
+                    <strong>Dirección completa:</strong>
+                    {{ schoolInfo.schooladdress }} |
+                    <strong>Telefono de contacto:</strong> +34{{
+                      schoolInfo.schooltelephone
+                    }}
+                    | +34{{ schoolInfo.schoolmobile }}
+                  </p>
+                  <p class="text-left">
+                    <strong>Email:</strong> {{ schoolInfo.schoolemail }} |
+                    <strong>Página web:</strong> {{ schoolInfo.website }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

@@ -1,0 +1,133 @@
+<menu-aside classActive="alumns"></menu-aside>
+<!-- Sidebar navigation -->
+<div class="container-fluid">
+  <div class="row">
+    <!-- Main content -->
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 ta-4">
+      <div *ngIf="loading" class="d-flex justify-content-center text-info mt-5">
+        <div class="spinner-border" role="status"></div>
+      </div>
+
+      <div class="inner-adjust" *ngIf="!loading">
+        <div class="pt-3 pb-2 mb-3 border-bottom">
+          <h1 class="h2">Lista de alumnos</h1>
+        </div>
+        <div class="row">
+          <div class="input-group col-md-4">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fas fa-filter"></i>
+              </div>
+            </div>
+            <input
+              type="text"
+              class="form-control filter-form-control"
+              placeholder="Filtrar alumno"
+              [formControl]="alumnFilter"
+            />
+          </div>
+        </div>
+
+        <div class="col-md-12 card card-cascade cascading-admin-card">
+          <table class="table mt-3 mb-3">
+            <thead>
+              <tr>
+                <th class="number-head" scope="col"></th>
+                <th scope="col">Nombre completo</th>
+                <th scope="col">Nombre de los padres</th>
+                <th scope="col">Grado</th>
+                <th scope="col">Transtorno</th>
+                <th scope="col">Fecha de nacimiento</th>
+                <th scope="col">Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let alumn of alumns; index as i">
+                <td class="number-column"># {{ i + 1 }}</td>
+                <td>{{ alumn?.name }}</td>
+                <td>
+                  <em>{{ alumn?.parent[0] }} | {{ alumn?.parent[1] }}</em>
+                </td>
+                <td>{{ alumn?.grade }}</td>
+                <td>{{ alumn?.disorder }}</td>
+                <td>{{ alumn?.datebirth }}</td>
+
+                <td>
+                  <em
+                    class="fas fa-first-aid mr-2"
+                    title="Registro de medicina"
+                    (click)="goToRoutes(alumn, 'medicine')"
+                  ></em>
+                  <em
+                    class="fas fa-map-marker-alt mr-2"
+                    title="Registro de rutas"
+                    (click)="goToRoutes(alumn, 'routes')"
+                  ></em>
+                  <em
+                    class="fas fa-folder-open mr-2"
+                    title="Acta escolar"
+                    (click)="goToRoutes(alumn, 'records')"
+                  ></em>
+                  <em
+                    class="fas fa-comments mr-2"
+                    (click)="goToRoutes(alumn, 'chat')"
+                    title="Chat"
+                  ></em>
+                  <em
+                    class="fas fa-eye fa-lg mr-2"
+                    title="Ver información de alumno"
+                    (click)="openModal('custom-modal-1', alumn)"
+                  ></em>
+                  <em class="fas fa-trash-alt mr-2" title="Delete Alumn"></em>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<jw-modal id="custom-modal-1">
+  <h3 class="text-left">Sobre {{ alumnSelected?.name }}</h3>
+  <div class="row">
+    <div class="col-md-3">
+      <img
+        class="align-self-start mr-5 img-thumbnail rounded-circle"
+        [src]="alumnSelected?.photo | async"
+        alt="alumn photo"
+      />
+    </div>
+    <div class="col-md-9">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <strong>Nombre completo:</strong> {{ alumnSelected?.name }}
+        </li>
+
+        <li class="list-group-item">
+          <strong>Grado:</strong> {{ alumnSelected?.grade }}
+        </li>
+        <li class="list-group-item">
+          <strong>Transtorno:</strong> {{ alumnSelected?.disorder }}
+        </li>
+        <li class="list-group-item">
+          <strong>Nombre de los padres:</strong>
+          <br />
+          <span>{{ alumnSelected?.parent[0] }}</span>
+          <br />
+          <span>{{ alumnSelected?.parent[1] }}</span>
+        </li>
+        <li class="list-group-item">
+          <strong>Telefono:</strong> {{ alumnSelected?.telephone }}
+        </li>
+        <li class="list-group-item">
+          <strong>Fecha de nacimiento:</strong> {{ alumnSelected?.datebirth }}
+        </li>
+        <li class="list-group-item">
+          <strong>Dirección completa:</strong> {{ alumnSelected?.address }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</jw-modal>

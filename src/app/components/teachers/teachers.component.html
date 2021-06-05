@@ -1,0 +1,112 @@
+<menu-aside classActive="teachers"></menu-aside>
+<!-- Sidebar navigation -->
+<div class="container-fluid">
+  <div class="row">
+    <!-- Main content -->
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 ta-4">
+      <div *ngIf="loading" class="d-flex justify-content-center text-info mt-5">
+        <div class="spinner-border" role="status"></div>
+      </div>
+      <div class="inner-adjust" *ngIf="!loading">
+        <div class="pt-3 pb-2 mb-3 border-bottom">
+          <h1 class="h2">Lista de profesores</h1>
+        </div>
+        <label class="sr-only" for="inlineFormInputGroupUsername2"
+          >Username</label
+        >
+        <div class="row">
+          <div class="input-group col-md-4">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fas fa-filter"></i>
+              </div>
+            </div>
+            <input
+              type="text"
+              class="form-control filter-form-control"
+              placeholder="Filtrar profesor"
+              [formControl]="teacherFilter"
+            />
+          </div>
+        </div>
+
+        <div class="col-md-12 card card-cascade cascading-admin-card">
+          <table class="table mt-3 mb-3">
+            <thead>
+              <tr>
+                <th class="number-head" scope="col"></th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellidos</th>
+                <th scope="col">Telefono de contacto</th>
+                <th scope="col">Fecha de nacimiento</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let teacher of teachers; index as i">
+                <td class="number-column"># {{ i + 1 }}</td>
+                <td>{{ teacher.firstname }}</td>
+                <td>{{ teacher.lastname }}</td>
+                <td>+34 {{ teacher.telephone }}</td>
+                <td>
+                  {{ teacher.datebirth }}
+                </td>
+                <td class="action-column">
+                  <em
+                    class="fas fa-trash-alt mr-1"
+                    (click)="deleteTeacher(teacher.uid)"
+                  ></em>
+                  <em
+                    class="fas fa-eye"
+                    (click)="openModal('custom-modal-1', teacher)"
+                  ></em>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<jw-modal id="custom-modal-1">
+  <h3 class="text-left">
+    Sobre {{ teacherSelected?.firstname }} {{ teacherSelected?.lastname }}
+  </h3>
+  <div class="row">
+    <div class="col-md-3">
+      <img
+        class="align-self-start mr-5 img-thumbnail rounded-circle"
+        [src]="teacherSelected?.photo | async"
+        alt="teacher photo"
+      />
+    </div>
+    <div class="col-md-9">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <strong>Nombre:</strong> {{ teacherSelected?.firstname }}
+        </li>
+        <li class="list-group-item">
+          <strong>Apellidos:</strong> {{ teacherSelected?.lastname }}
+        </li>
+        <li class="list-group-item">
+          <strong>Telefono de contacto:</strong>
+          {{ teacherSelected?.telephone }}
+        </li>
+        <li class="list-group-item">
+          <strong>Fecha de nacimiento:</strong> {{ teacherSelected?.datebirth }}
+        </li>
+        <li class="list-group-item">
+          <strong>Dirección completa:</strong> {{ teacherSelected?.address }}
+        </li>
+        <li class="list-group-item">
+          <strong>Rol:</strong>
+          <span style="text-transform: capitalize">
+            {{ teacherSelected?.title }}
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</jw-modal>

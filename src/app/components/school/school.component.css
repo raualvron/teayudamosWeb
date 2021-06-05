@@ -1,0 +1,19 @@
+.schoolBlock {
+  margin: 0 auto;
+  max-width: 850px;
+  background: white;
+  padding: 30px 40px 10px;
+  color: #264653;
+  overflow: hidden;
+  -webkit-box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.04);
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.04);
+}
+
+.subparagraph {
+  text-align: center;
+}
+
+.btnPrimary {
+  margin: 0 auto;
+  display: block;
+}

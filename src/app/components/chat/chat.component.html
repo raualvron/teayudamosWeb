@@ -1,0 +1,94 @@
+<menu-aside classActive="alumns"></menu-aside>
+<!-- Sidebar navigation -->
+<div class="container-fluid">
+  <div class="row">
+    <!-- Main content -->
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 ta-4">
+      <div *ngIf="loading" class="d-flex justify-content-center text-info mt-5">
+        <div class="spinner-border" role="status"></div>
+      </div>
+
+      <div class="inner-adjust" *ngIf="!loading">
+        <div class="pt-3 pb-2 mb-3 border-bottom">
+          <h1 class="h2">Chatea con los padres de {{ alumn?.name }}</h1>
+          <em
+            >En la siguiente página, podras chatear con los padres de
+            {{ alumn?.name }} para mantener a ellos informados de cualquier
+            incidencia, justificación, etc, de forma rapida
+          </em>
+        </div>
+        <div class="row">
+          <div class="mesgs">
+            <div class="msg_history" *ngFor="let chat of chats; index as i">
+              <div
+                [ngClass]="{
+                  incoming_msg: chat.type == 'incoming',
+                  outgoing_msg: chat.type != 'incoming'
+                }"
+              >
+                <div class="incoming_msg_img" *ngIf="chat.type == 'incoming'">
+                  <img src="../../assets/teacher.jpeg" />
+                </div>
+                <div
+                  [ngClass]="{
+                    received_msg: chat.type == 'incoming',
+                    outgoing_msg: chat.type != 'incoming'
+                  }"
+                >
+                  <div
+                    [ngClass]="{
+                      received_withd_msg: chat.type == 'incoming',
+                      sent_msg: chat.type != 'incoming'
+                    }"
+                  >
+                    <p>{{ chat.message }}</p>
+                    <span class="time_date">{{
+                      formatDate(chat.datetime)
+                    }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="!chats.length" class="text-center">
+              <em
+                >El chat está vacío. ¿Estas listo para mandar tu primer
+                mensaje?</em
+              >
+            </div>
+            <div class="type_msg mt-3">
+              <form [formGroup]="chatForm" (ngSubmit)="onSubmit()">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="message"
+                  placeholder="Escriba su mensaje"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.message.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.message.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.message.errors.required">
+                    Mensaje es requerido
+                  </div>
+                </div>
+                <div class="text-right mt-2">
+                  <button
+                    type="submit"
+                    style="width: 120px; height: 50px"
+                    class="btn btnPrimary"
+                    type="submit"
+                  >
+                    Enviar
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

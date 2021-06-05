@@ -1,0 +1,48 @@
+<menu-aside classActive="alumns"></menu-aside>
+<!-- Sidebar navigation -->
+<div class="container-fluid">
+  <div class="row">
+    <!-- Main content -->
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 ta-4">
+      <div *ngIf="loading" class="d-flex justify-content-center text-info mt-5">
+        <div class="spinner-border" role="status"></div>
+      </div>
+
+      <div class="inner-adjust" *ngIf="!loading">
+        <div class="pt-3 pb-2 mb-3 border-bottom">
+          <h1 class="h2">Geolocalizacion y rutas de de {{ alumn?.name }}</h1>
+        </div>
+      </div>
+
+      <br />
+      <div class="row">
+        <div id="map" class="map col-md-6"></div>
+        <div id="route-list" class="col-md-6">
+          <div
+            class="col-12 route-row"
+            *ngFor="let route of routes; index as i"
+            (click)="changeMap(route)"
+          >
+            <p>
+              <strong>Acción</strong>:
+              <span [ngClass]="getBadgetClass(route.action)">{{
+                route.action
+              }}</span>
+              | <strong><i class="fas fa-clock"></i> Fecha</strong>:
+              <em>{{ getDate(route.datetime, "LLL") }}</em> |
+              <strong><i class="fas fa-location-arrow"></i> Geolocation</strong
+              >: {{ route.points[0].latitude }} |
+              {{ route.points[0].longitude }}
+            </p>
+
+            <p>
+              <strong>Direccion aproximada</strong> Colegio Privado Concertado
+              Arboleda, Calle Reina Victoria, Sevilla Este, Distrito
+              Este-Alcosa-Torreblanca, Seville, Sevilla, Andalusia, 41020, Spain
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

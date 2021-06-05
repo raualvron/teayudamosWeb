@@ -1,0 +1,243 @@
+<div class="displayTable">
+  <div class="displayTableCell">
+    <div class="ta-logo">
+      <img src="../../assets/logo.png" alt="TEAayudamos" />
+      <span>TEAyudamos</span>
+    </div>
+
+    <div class="schoolBlock">
+      <h3>Tell about your school</h3>
+      <p class="subparagraph">
+        It looks like what you have not been registered in a school. Fill in the
+        form below to finish your profile.
+      </p>
+      <form [formGroup]="schoolForm" (ngSubmit)="onSubmit()">
+        <div id="about-school" class="content">
+          <div class="form-row">
+            <div class="form-group col-6">
+              <label>Head Teacher Name</label>
+              <input
+                type="text"
+                formControlName="headteacher"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid': submitted && f.headteacher.errors
+                }"
+              />
+              <div
+                *ngIf="submitted && f.headteacher.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.headteacher.errors.required">
+                  Head Teacher Name es requerido
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-6">
+              <label>School Name</label>
+              <input
+                type="text"
+                formControlName="schoolname"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid': submitted && f.schoolname.errors
+                }"
+              />
+              <div
+                *ngIf="submitted && f.schoolname.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.schoolname.errors.required">
+                  School Name es requerido
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-8">
+              <label>School Address</label>
+              <input
+                type="text"
+                placeholder="Calle Sierpes, 41004, Sevilla, España"
+                formControlName="schooladdress"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid': submitted && f.schooladdress.errors
+                }"
+              />
+              <div
+                *ngIf="submitted && f.schooladdress.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.schooladdress.errors.required">
+                  School Address es requerido
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-4">
+              <label class="form-label" for="schoollogo">Logo School</label>
+              <input
+                type="file"
+                class="form-control"
+                id="schoollogo"
+                (change)="onFileChange($event)"
+              />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-6">
+              <label for="schoolmobile">School Mobile Number</label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="schoolmobile-addon">
+                    +34
+                  </span>
+                </div>
+                <input
+                  type="text"
+                  formControlName="schoolmobile"
+                  class="form-control"
+                  id="schoolmobile"
+                  aria-describedby="schoolmobile-addon"
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <label for="schooltelephone">School Telephone Number</label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="schooltelephone-addon">
+                    +34
+                  </span>
+                </div>
+                <input
+                  type="text"
+                  formControlName="schooltelephone"
+                  class="form-control"
+                  id="schooltelephone"
+                  aria-describedby="schooltelephone-addon"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-6">
+              <label>Study Level</label>
+              <select
+                formControlName="level"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid': submitted && f.level.errors
+                }"
+              >
+                <option value=""></option>
+                <option value="nursery">Nursery</option>
+                <option value="reception">Reception</option>
+                <option value="primary">Primary</option>
+                <option value="Secundary">Secundary</option>
+                <option value="College">College</option>
+              </select>
+              <div *ngIf="submitted && f.level.errors" class="invalid-feedback">
+                <div *ngIf="f.level.errors.required">
+                  Study level es requerido
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-6">
+              <label>School Institution Type</label>
+              <select
+                formControlName="institution"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid': submitted && f.institution.errors
+                }"
+              >
+                <option value=""></option>
+                <option value="support">Education Support</option>
+                <option value="specialized">Specialized Education</option>
+                <option value="education">Education</option>
+              </select>
+              <div
+                *ngIf="submitted && f.institution.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.institution.errors.required">
+                  School Institution Type es requerido
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-4">
+              <label>Schedule</label>
+              <input
+                type="text"
+                formControlName="schedule"
+                class="form-control"
+                placeholder="From 8.00 to 17.00"
+                [ngClass]="{
+                  'is-invalid': submitted && f.schedule.errors
+                }"
+              />
+              <div
+                *ngIf="submitted && f.schedule.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.schedule.errors.required">
+                  Schedule es requerido
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-4">
+              <label>Website</label>
+              <input
+                type="text"
+                formControlName="website"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid': submitted && f.website.errors
+                }"
+              />
+              <div
+                *ngIf="submitted && f.website.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.website.errors.required">
+                  Website es requerido
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-4">
+              <label>School Email</label>
+              <input
+                type="text"
+                formControlName="schoolemail"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid': submitted && f.schoolemail.errors
+                }"
+              />
+              <div
+                *ngIf="submitted && f.schoolemail.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.schoolemail.errors.required">
+                  School Email es requerido
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          style="width: 120px"
+          class="btn btnPrimary"
+          type="submit"
+        >
+          Register
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,171 @@
+<menu-aside classActive="alumns"></menu-aside>
+<!-- Sidebar navigation -->
+<div class="container-fluid">
+  <div class="row">
+    <!-- Main content -->
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 ta-4">
+      <div *ngIf="loading" class="d-flex justify-content-center text-info mt-5">
+        <div class="spinner-border" role="status"></div>
+      </div>
+
+      <div class="inner-adjust" *ngIf="!loading">
+        <div class="pt-3 pb-2 mb-3 border-bottom">
+          <div
+            class="btn calendar-add-event float-right mt-3"
+            (click)="openModal('custom-modal-1')"
+          >
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Añadir acta
+          </div>
+          <h1 class="h2">Acta escolar de {{ alumn?.name }}</h1>
+          <em
+            >En la siguiente página, podras mostrar a los padres de los alumnos
+            los aspectos o hechos ocurridos, tratados y conversados por los
+            sujetos escolares en un determinado lugar.
+          </em>
+        </div>
+        <div class="row">
+          <div
+            *ngFor="let minute of minutes; index as i"
+            id="ngb-panel-{{ i }}"
+            class="col-md-6 custom-accordion"
+            [ngClass]="{ 'mt-4': i > 1 }"
+          >
+            <div class="title bg-{{ minute.type }}">
+              <p class="calendar">
+                {{ getDate(minute.date, "D") }}
+                <em class="text-capitalize">{{
+                  getDate(minute.date, "MMMM")
+                }}</em>
+              </p>
+              <span>{{ minute.title }}</span>
+            </div>
+            <div class="description">
+              {{ minute.description }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<jw-modal id="custom-modal-1">
+  <h3 class="text-left">Añadir acta escolar</h3>
+  <div class="col-md-12">
+    <form [formGroup]="recordForm" (ngSubmit)="onSubmit()">
+      <div class="row mt-3">
+        <div class="col-md-12">
+          <label>Título</label>
+          <input
+            type="text"
+            formControlName="title"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && f.title.errors
+            }"
+          />
+          <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+            <div *ngIf="f.title.errors.required">Titulo es requerido</div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-md-12">
+          <label>Descripcion</label>
+          <textarea
+            formControlName="description"
+            rows="10"
+            cols="50"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && f.description.errors
+            }"
+          ></textarea>
+          <div
+            *ngIf="submitted && f.description.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.description.errors.required">
+              Description es requerido
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5 mt-3">
+          <label>Fecha</label>
+          <input
+            type="date"
+            formControlName="date"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && f.date.errors
+            }"
+          />
+          <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
+            <div *ngIf="f.date.errors.required">Fecha es requerido</div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3 mb-3">
+        <div class="col-md-4">
+          <label
+            >Tipo de acta
+            <div
+              class="ml-3 rounded-circle mr-1"
+              style="
+                width: 25px;
+                background-color: #95e1d3;
+                display: inline-block;
+              "
+            >
+              &nbsp;
+            </div>
+            <div
+              class="rounded-circle mr-1"
+              style="
+                width: 25px;
+                background-color: #fce28a;
+                display: inline-block;
+              "
+            >
+              &nbsp;
+            </div>
+            <div
+              class="rounded-circle mr-1"
+              style="
+                width: 25px;
+                background-color: #ff75a0;
+                display: inline-block;
+              "
+            >
+              &nbsp;
+            </div>
+          </label>
+          <select
+            formControlName="type"
+            class="browser-default custom-select"
+            [ngClass]="{
+              'is-invalid': submitted && f.type.errors
+            }"
+          >
+            <option value="success">Satisfactorio</option>
+            <option value="warning">Aviso/Advertencia</option>
+            <option value="danger">A tener en cuenta</option>
+          </select>
+        </div>
+        <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
+          <div *ngIf="f.type.errors.required">Tipo es requerido</div>
+        </div>
+        <div class="col-md-9"></div>
+      </div>
+      <button
+        type="submit"
+        style="width: 150px"
+        class="btn btnPrimary"
+        type="submit"
+      >
+        Añadir medicina
+      </button>
+    </form>
+  </div>
+</jw-modal>

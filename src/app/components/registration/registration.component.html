@@ -1,0 +1,212 @@
+<div class="displayTable">
+  <div class="displayTableCell">
+    <div class="ta-logo">
+      <img src="../../assets/logo.png" alt="TEAayudamos" />
+      <span>TEAyudamos</span>
+    </div>
+    <div class="registrationBlock">
+      <h3>Tell me about you</h3>
+      <p class="subparagraph">
+        It looks like what you have not been registered before. Fill in the form
+        below to complete your profile.
+      </p>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div id="about-you" class="content">
+          <div class="form-row">
+            <div class="form-group col-3">
+              <label>Title</label>
+              <select
+                formControlName="title"
+                (change)="onTitleChange($event)"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid': submitted && f.title.errors
+                }"
+              >
+                <option value="head">Head Teacher</option>
+                <option value="teacher">Teacher</option>
+                <option value="nurse">Nurse</option>
+                <option value="psychologist">Psychologist</option>
+                <option value="worker">Social worker</option>
+              </select>
+              <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+                <div *ngIf="f.title.errors.required">Title es requerido</div>
+              </div>
+            </div>
+            <div class="form-group col-4">
+              <label>First Name</label>
+              <input
+                type="text"
+                formControlName="firstName"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid': submitted && f.firstName.errors
+                }"
+              />
+              <div
+                *ngIf="submitted && f.firstName.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.firstName.errors.required">
+                  First Name es requerido
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-5">
+              <label>Last Name</label>
+              <input
+                type="text"
+                formControlName="lastName"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid': submitted && f.lastName.errors
+                }"
+              />
+              <div
+                *ngIf="submitted && f.lastName.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.lastName.errors.required">
+                  Last Name es requerido
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row control-school-associated">
+            <div class="form-group col-md-8">
+              <label>School associated</label>
+              <select
+                formControlName="schoolassociated"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid': submitted && f.schoolassociated.errors
+                }"
+              >
+                <option [value]="sch.value" *ngFor="let sch of schoolsList">
+                  {{ sch.label }}
+                </option>
+              </select>
+              <div
+                *ngIf="submitted && f.schoolassociated.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.schoolassociated.errors.required">
+                  Your school associated es requerido
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-4">
+              <label class="form-label" for="teacherphoto">Your photo</label>
+              <input
+                formControlName="teacherphoto"
+                type="file"
+                class="form-control"
+                id="teacherphoto"
+                [ngClass]="{
+                  'is-invalid': submitted && f.teacherphoto.errors
+                }"
+                (change)="onFileChange($event)"
+              />
+              <div
+                *ngIf="submitted && f.teacherphoto.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.teacherphoto.errors.required">
+                  Your photo es requerido
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col">
+              <label>Date of Birth</label>
+              <input
+                type="date"
+                formControlName="dob"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid': submitted && f.dob.errors
+                }"
+              />
+              <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
+                <div *ngIf="f.dob.errors.required">
+                  Date of Birth es requerido
+                </div>
+                <div *ngIf="f.dob.errors.pattern">
+                  Date of Birth must be a valid date in the format YYYY-MM-DD
+                </div>
+              </div>
+            </div>
+            <div class="form-group col">
+              <label>Email</label>
+              <input
+                type="text"
+                formControlName="email"
+                class="form-control"
+                disabled="true"
+              />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-8">
+              <label>Address</label>
+              <input
+                type="text"
+                placeholder="Sierpes Street, 41004, Sevilla, España"
+                formControlName="address"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid': submitted && f.address.errors
+                }"
+              />
+              <div
+                *ngIf="submitted && f.address.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.address.errors.required">
+                  Address es requerido
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <label for="telephone">Telephone number</label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="telephone-addon">
+                    +34
+                  </span>
+                </div>
+                <input
+                  type="text"
+                  formControlName="telephone"
+                  class="form-control"
+                  id="telephone"
+                  aria-describedby="telephone-addon"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.telephone.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.telephone.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.telephone.errors.required">
+                    Telephone es requerido
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          type="submit"
+          style="width: 120px"
+          class="btn btnPrimary"
+          type="submit"
+        >
+          Register
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

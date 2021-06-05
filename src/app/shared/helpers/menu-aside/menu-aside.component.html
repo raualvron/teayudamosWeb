@@ -1,0 +1,58 @@
+<!-- Vertical navbar -->
+<div class="vertical-nav" id="sidebar">
+  <div class="py-4 px-3 mb-4">
+    <div class="media d-flex align-items-center">
+      <img
+        width="65"
+        class="mr-2 rounded-circle img-thumbnail shadow-sm"
+        src="assets/logo.png"
+        alt="TEAyudamos Logo"
+      />
+      <div class="media-body">
+        <h4 class="m-0">TEAyudamos</h4>
+      </div>
+    </div>
+  </div>
+
+  <ul class="nav flex-column mr-3 ml-3">
+    <li class="nav-item mb-2">
+      <a
+        [className]="
+          classActive == 'profile' ? 'nav-link active' : 'nav-link no-active'
+        "
+        href="/dashboard"
+        class="nav-link"
+      >
+        <i class="fa fa-user mr-3 fa-fw"></i>Perfil
+      </a>
+    </li>
+    <li class="nav-item mb-2">
+      <a
+        [className]="
+          classActive == 'teachers' ? 'nav-link active' : 'nav-link no-active'
+        "
+        href="/teachers"
+        class="nav-link"
+      >
+        <i class="fa fa-chalkboard-teacher mr-3 fa-fw"></i>Profesores
+      </a>
+    </li>
+    <li class="nav-item mb-2">
+      <a
+        [className]="
+          classActive == 'alumns' ? 'nav-link active' : 'nav-link no-active'
+        "
+        href="/alumns"
+        class="nav-link"
+      >
+        <i class="fa fa-users mr-3 fa-fw"></i>
+        Alumnos
+      </a>
+    </li>
+    <li class="nav-item mb-2">
+      <a class="nav-link no-active" href="#" (click)="authService.SignOut()">
+        <i class="fa fas fa-sign-out-alt mr-3 fa-fw"></i>Cerrar sesión
+      </a>
+    </li>
+  </ul>
+</div>
